@@ -152,9 +152,9 @@ STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
 # do not add this in settings as it can cause collect static issues in deployment.
-STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, 'staticfiles'),
-)
+# STATICFILES_DIRS = (
+	# os.path.join(BASE_DIR, 'staticfiles'),
+# )
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 db_from_env = dj_database_url.config(conn_max_age=500)
