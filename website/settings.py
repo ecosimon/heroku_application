@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['www.wilsamplesite.herokuapp.com','.wilsamplesite.herokuapp.com','.heroku.com','.herokuapp.com']
+ALLOWED_HOSTS = ['www.wilsamplesite.herokuapp.com', '.herokuapp.com']
 
 
 # Application definition
@@ -113,6 +113,52 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'verbose': {
+            '()': 'core.utils.ColorLogFormatter',
+            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+    'root': {
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        'dev': {
+            'handlers': ['console'],
+         },
+        'prod':{
+            # include logfiles as per doc on slite for prod env: https://yonder.slite.com/app/notes/HkTmGNojz
+            'handlers': ['console']
+        },
+
+    }
+}
 
 
 # Internationalization
