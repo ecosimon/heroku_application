@@ -151,9 +151,9 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, 'landing_page', 'static'),
-)
+# STATICFILES_DIRS = (
+	# os.path.join(BASE_DIR, 'landing_page', 'static'),
+# )
 
 # do not add this in settings as it can cause collect static issues in deployment.
 
