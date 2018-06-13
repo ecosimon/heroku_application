@@ -149,9 +149,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # do not add this in settings as it can cause collect static issues in deployment.
-STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, 'static'),
-)
+# STATICFILES_DIRS = (
+	# os.path.join(BASE_DIR, 'static'),
+# )
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
