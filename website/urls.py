@@ -23,4 +23,7 @@ urlpatterns = [
     url(r'^', include('landing_page.urls')),
 ]
 
-
+if not settings.DEBUG:
+    urlpatterns += [
+        url(r'static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    ]
