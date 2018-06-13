@@ -17,8 +17,8 @@ from decouple import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -79,23 +79,23 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-	)
-}
-
 # DATABASES = {
-    # 'default': {
-        
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': config('DB_NAME'),
-		# 'USER': config('DB_USER'),
-		# 'PASSWORD': config('DB_PASSWORD'),
-		# 'HOST': config('DB_HOST'),
-		# 'PORT': config('DB_PORT'),
-    # }
+    # 'default': dj_database_url.config(
+        # default=config('DATABASE_URL')
+	# )
 # }
+
+DATABASES = {
+    'default': {
+        
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+		'USER': config('DB_USER'),
+		'PASSWORD': config('DB_PASSWORD'),
+		'HOST': config('DB_HOST'),
+		'PORT': config('DB_PORT'),
+    }
+}
 
 
 # Password validation
@@ -147,13 +147,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, 'staticfiles'),
-)
 # dev root
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, 'landing_page', 'static'),
+)
 
 # do not add this in settings as it can cause collect static issues in deployment.
 
