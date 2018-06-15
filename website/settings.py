@@ -12,13 +12,13 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
-import django_heroku
 from decouple import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# print("path of ", BASE_DIR)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'landing_page',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -143,23 +144,30 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-# dev root
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = (
-	# os.path.join(BASE_DIR, 'landing_page', 'static'),
-# )
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, 'static'),
+)
 
-# do not add this in settings as it can cause collect static issues in deployment.
+# Amazon Web Services
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'sdev-static'
+AWS_S3_CUSTOM_DOMAIN = '{0}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+AWS_S3_OBJECT_PARAMETER = {
+	'CacheControl': 'max-age = 86400',
+}
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# static storage
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
+# media storage
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-
-django_heroku.settings(locals())
